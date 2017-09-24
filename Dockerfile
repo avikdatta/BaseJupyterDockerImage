@@ -30,7 +30,8 @@ RUN apt-get -y update &&   \
     libssl-dev             \
     libreadline6-dev       \
     libreadline6           \
-    libopenblas-dev        
+    libopenblas-dev        \
+    texlive-xetex
     
     
 RUN locale-gen en_US.UTF-8
