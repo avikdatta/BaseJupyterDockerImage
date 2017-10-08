@@ -31,7 +31,8 @@ RUN apt-get -y update &&   \
     libreadline6-dev       \
     libreadline6           \
     libopenblas-dev        \
-    texlive-xetex
+    texlive-xetex          \
+    &&  apt-get purge -y --auto-remove
     
     
 RUN locale-gen en_US.UTF-8
@@ -57,5 +58,5 @@ RUN pip install jupyter
 RUN mkdir -p /home/$NB_USER/.jupyter
 RUN echo "c.NotebookApp.password = u'sha1:c991cd11a7cc:f4c7bd274c69271f7333ea24bfe85103566464de'" > /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 
-
-CMD ['jupyter-notebook --ip 0.0.0.0']
+EXPOSE 8888
+CMD ['jupyter-notebook', '--ip=0.0.0.0', '--port=8888', '--no-browser']
