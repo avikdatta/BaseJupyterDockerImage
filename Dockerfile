@@ -53,7 +53,7 @@ RUN eval "$(pyenv init -)"
 RUN pyenv install 3.5.2
 RUN pyenv global 3.5.2
 
-RUN pip install jupyter
+RUN pip install --no-cache-dir -q jupyter
 
 RUN mkdir -p /home/$NB_USER/.jupyter
 RUN echo "c.NotebookApp.password = u'sha1:c991cd11a7cc:f4c7bd274c69271f7333ea24bfe85103566464de'" > /home/$NB_USER/.jupyter/jupyter_notebook_config.py
