@@ -1,5 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER reach4avik@yahoo.com
+LABEL maintainer="avikdatta"
 
 ENTRYPOINT []
 
@@ -31,15 +32,15 @@ RUN apt-get -y update &&   \
     libreadline6-dev       \
     libreadline6           \
     libopenblas-dev        \
-    texlive-xetex          \
-    &&  apt-get purge -y --auto-remove \
-    &&  apt-get clean \
-    &&  rm -rf /var/lib/apt/lists/*
-    
+    texlive-xetex          
     
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
 
+RUN apt-get purge -y --auto-remove \
+    &&  apt-get clean \
+    &&  rm -rf /var/lib/apt/lists/*
+    
 USER $NB_USER
 WORKDIR /home/$NB_USER
 
@@ -55,7 +56,9 @@ RUN eval "$(pyenv init -)"
 RUN pyenv install 3.5.2
 RUN pyenv global 3.5.2
 
-RUN pip install --no-cache-dir -q jupyter
+RUN pip install --no-cache-dir -q jupyter \
+    && rm -rf /home/$NB_USER/.cache \
+    && rm -rf /home/$NB_USER/tmp
 
 RUN mkdir -p /home/$NB_USER/.jupyter
 RUN echo "c.NotebookApp.password = u'sha1:c991cd11a7cc:f4c7bd274c69271f7333ea24bfe85103566464de'" > /home/$NB_USER/.jupyter/jupyter_notebook_config.py
