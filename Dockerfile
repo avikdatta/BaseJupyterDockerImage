@@ -32,7 +32,9 @@ RUN apt-get -y update &&   \
     libreadline6           \
     libopenblas-dev        \
     texlive-xetex          \
-    &&  apt-get purge -y --auto-remove
+    &&  apt-get purge -y --auto-remove \
+    &&  apt-get clean \
+    &&  rm -rf /var/lib/apt/lists/*
     
     
 RUN locale-gen en_US.UTF-8
