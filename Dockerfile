@@ -56,7 +56,7 @@ RUN eval "$(pyenv init -)"
 RUN pyenv install 3.5.2
 RUN pyenv global 3.5.2
 
-RUN pip install --no-cache-dir -q jupyter \
+RUN pip install --no-cache-dir -q jupyter jupyterlab \
     && rm -rf /home/$NB_USER/.cache \
     && rm -rf /home/$NB_USER/tmp
 
