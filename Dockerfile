@@ -32,7 +32,9 @@ RUN apt-get -y update &&   \
     libreadline6-dev       \
     libreadline6           \
     libopenblas-dev        \
-    texlive-xetex          
+    texlive-xetex          \
+    openssl                \
+    ca-certificates
     
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
