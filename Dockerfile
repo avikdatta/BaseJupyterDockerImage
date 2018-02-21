@@ -44,7 +44,7 @@ RUN apt-get purge -y --auto-remove \
 USER $NB_USER
 WORKDIR /home/$NB_USER
 
-RUN git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+RUN git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 
 RUN mkdir -p /home/$NB_USER/tmp          
 ENV TMPDIR=/home/$NB_USER/tmp
