@@ -38,7 +38,7 @@ RUN apt-get -y update &&   \
     ca-certificates        
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
-    && apt-get install --no-install-recommends -y nodejs
+    && apt-get install --no-install-recommends -y nodejs npm
     
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
@@ -74,10 +74,11 @@ RUN git clone https://github.com/jupyterlab/jupyter-renderers.git \
     && cd jupyter-renderers \
     && jlpm \
     && jlpm build \
-    && jupyter labextension link packages/fasta-extension \
     && jupyter labextension link packages/plotly-extension \
     && jlpm build \
-    && jupyter lab build
+    && jupyter lab build \
+    && rm -rf /home/$NB_USER/tmp \
+    && mkdir -p /home/$NB_USER/tmp 
 
 EXPOSE 8888
 CMD ["jupyter","notebook","--ip=0.0.0.0","--port=8888","--no-browser"]
