@@ -34,8 +34,10 @@ RUN apt-get -y update &&   \
     libopenblas-dev        \
     texlive-xetex          \
     openssl                \
-    ca-certificates        \
-    nodejs
+    ca-certificates        
+
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+    && apt-get install --no-install-recommends -y nodejs
     
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
