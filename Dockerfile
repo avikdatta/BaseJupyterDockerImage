@@ -19,6 +19,7 @@ RUN apt-get -y update &&   \
     apt-get install --no-install-recommends -y \
     git                    \
     locales                \
+    curl                   \
     wget                   \
     make                   \
     g++                    \
