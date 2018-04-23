@@ -34,7 +34,8 @@ RUN apt-get -y update &&   \
     libopenblas-dev        \
     texlive-xetex          \
     openssl                \
-    ca-certificates
+    ca-certificates        \
+    nodejs
     
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
