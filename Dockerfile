@@ -37,8 +37,8 @@ RUN apt-get -y update &&   \
     openssl                \
     ca-certificates        
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
-    && apt-get install --no-install-recommends -y nodejs
+#RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+#    && apt-get install --no-install-recommends -y nodejs
     
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
@@ -69,7 +69,12 @@ RUN pip install --no-cache-dir -q jupyter jupyterlab \
 
 RUN mkdir -p /home/$NB_USER/.jupyter
 RUN echo "c.NotebookApp.password = u'sha1:c991cd11a7cc:f4c7bd274c69271f7333ea24bfe85103566464de'" > /home/$NB_USER/.jupyter/jupyter_notebook_config.py
- 
+
+RUN wget https://nodejs.org/dist/v8.11.1/node-v8.11.1-linux-x64.tar.xz \
+    && tar -xvf node-v8.11.1-linux-x64.tar.xz
+
+ENV PATH="/home/$NB_USER/node-v8.11.1-linux-x64/bin:$PATH"
+
 RUN npm install --global yarn \
     && git clone https://github.com/jupyterlab/jupyter-renderers.git \
     && cd jupyter-renderers \
