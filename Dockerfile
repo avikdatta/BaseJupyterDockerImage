@@ -81,6 +81,7 @@ RUN npm install --global yarn \
     && jlpm \
     && jlpm build \
     && jupyter labextension link packages/plotly-extension \
+    && jupyter labextension link packages/fasta-extension \
     && jlpm build \
     && jupyter lab build \
     && rm -rf /home/$NB_USER/tmp \
