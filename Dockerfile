@@ -1,4 +1,5 @@
-FROM ubuntu:16.04
+FROM alpine:3.7
+#FROM ubuntu:16.04
 MAINTAINER reach4avik@yahoo.com
 LABEL maintainer="avikdatta"
 
@@ -11,12 +12,11 @@ ENV NB_UID 1000
 USER root
 WORKDIR /root/
 
-RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER \
-     && groupadd $NB_GROUP \
-     && usermod -a -G $NB_GROUP $NB_USER
+# ubuntu specific cmd
+#RUN apt-get -y update &&   \
+#apt-get install --no-install-recommends -y \
      
-RUN apt-get -y update &&   \
-    apt-get install --no-install-recommends -y \
+RUN apk add --no-cache \
     git                    \
     locales                \
     curl                   \
@@ -36,16 +36,22 @@ RUN apt-get -y update &&   \
     texlive-xetex          \
     openssl                \
     ca-certificates        
-
+    
+RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER \
+     && groupadd $NB_GROUP \
+     && usermod -a -G $NB_GROUP $NB_USER
+     
 #RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
 #    && apt-get install --no-install-recommends -y nodejs
-    
-RUN locale-gen en_US.UTF-8
-RUN dpkg-reconfigure locales
 
-RUN apt-get purge -y --auto-remove \
-    &&  apt-get clean \
-    &&  rm -rf /var/lib/apt/lists/*
+# ubuntu specific cmd
+#RUN locale-gen en_US.UTF-8
+#RUN dpkg-reconfigure locales
+
+# ubuntu specific cmd
+#RUN apt-get purge -y --auto-remove \
+#    &&  apt-get clean \
+#    &&  rm -rf /var/lib/apt/lists/*
     
 USER $NB_USER
 WORKDIR /home/$NB_USER
