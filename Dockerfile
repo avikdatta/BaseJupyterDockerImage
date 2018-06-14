@@ -15,7 +15,20 @@ WORKDIR /root/
 # ubuntu specific cmd
 #RUN apt-get -y update &&   \
 #apt-get install --no-install-recommends -y \
-     
+
+## alpine specific commands
+RUN apk add --no-cache \
+        build-essential \
+        libbz2-dev \
+        libopenblas-dev \
+        libreadline6 \
+        libreadline6-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        locales \
+        texlive-xetex \
+        zlib1g-dev
+        
 RUN apk add --no-cache \
     git                    \
     locales                \
