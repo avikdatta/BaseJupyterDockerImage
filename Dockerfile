@@ -17,7 +17,7 @@ WORKDIR /root/
 #apt-get install --no-install-recommends -y \
 
 ## alpine specific commands
-RUN apk add --no-cache \
+RUN apk --update add --no-cache \
         build-essential \
         libbz2-dev \
         libopenblas-dev \
