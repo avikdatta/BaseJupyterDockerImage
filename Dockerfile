@@ -17,8 +17,21 @@ WORKDIR /root/
 #apt-get install --no-install-recommends -y \
 
 ## alpine specific commands
-RUN apk --update add --no-cache \
-        build-essential \
+RUN echo http://mirror1.hs-esslingen.de/pub/Mirrors/alpine/v3.7/main >> /etc/apk/repositories; \
+    echo http://mirror1.hs-esslingen.de/pub/Mirrors/alpine/v3.7/community >> /etc/apk/repositories; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories; \
+    echo "http://mirror1.hs-esslingen.de/pub/Mirrors/alpine/edge/testing" >> /etc/apk/repositories
+     
+
+RUN apk update &&
+    apk --update add --no-cache --force-broken-world \
+        gcc \
+        g++ \
+        python3 \
+        python3-dev \
+        pip3 \
+        .build-deps \
+        build-base \
         libbz2-dev \
         libopenblas-dev \
         libreadline6 \
@@ -28,8 +41,10 @@ RUN apk --update add --no-cache \
         locales \
         texlive-xetex \
         zlib1g-dev
-        
-RUN apk add --no-cache \
+
+RUN apk add --upgrade apk-tools
+
+RUN apk add --no-cache --force-broken-world \
     git                    \
     locales                \
     curl                   \
