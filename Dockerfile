@@ -37,9 +37,6 @@ apt-get install --no-install-recommends -y \
     openssl                \
     ca-certificates        
     
-RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER \
-     && groupadd $NB_GROUP \
-     && usermod -a -G $NB_GROUP $NB_USER
      
 #RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
 #    && apt-get install --no-install-recommends -y nodejs
