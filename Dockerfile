@@ -1,5 +1,4 @@
-FROM alpine:3.7
-#FROM ubuntu:16.04
+FROM ubuntu:16.04
 MAINTAINER reach4avik@yahoo.com
 LABEL maintainer="avikdatta"
 
@@ -12,39 +11,12 @@ ENV NB_UID 1000
 USER root
 WORKDIR /root/
 
-# ubuntu specific cmd
-#RUN apt-get -y update &&   \
-#apt-get install --no-install-recommends -y \
+RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER \
+     && groupadd $NB_GROUP \
+     && usermod -a -G $NB_GROUP $NB_USER
 
-## alpine specific commands
-RUN echo http://mirror1.hs-esslingen.de/pub/Mirrors/alpine/v3.7/main >> /etc/apk/repositories; \
-    echo http://mirror1.hs-esslingen.de/pub/Mirrors/alpine/v3.7/community >> /etc/apk/repositories; \
-    echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories; \
-    echo "http://mirror1.hs-esslingen.de/pub/Mirrors/alpine/edge/testing" >> /etc/apk/repositories
-     
-
-RUN apk update &&
-    apk --update add --no-cache --force-broken-world \
-        gcc \
-        g++ \
-        python3 \
-        python3-dev \
-        pip3 \
-        .build-deps \
-        build-base \
-        libbz2-dev \
-        libopenblas-dev \
-        libreadline6 \
-        libreadline6-dev \
-        libsqlite3-dev \
-        libssl-dev \
-        locales \
-        texlive-xetex \
-        zlib1g-dev
-
-RUN apk add --upgrade apk-tools
-
-RUN apk add --no-cache --force-broken-world \
+RUN apt-get -y update &&   \
+apt-get install --no-install-recommends -y \
     git                    \
     locales                \
     curl                   \
@@ -73,13 +45,13 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER \
 #    && apt-get install --no-install-recommends -y nodejs
 
 # ubuntu specific cmd
-#RUN locale-gen en_US.UTF-8
-#RUN dpkg-reconfigure locales
+RUN locale-gen en_US.UTF-8
+RUN dpkg-reconfigure locales
 
 # ubuntu specific cmd
-#RUN apt-get purge -y --auto-remove \
-#    &&  apt-get clean \
-#    &&  rm -rf /var/lib/apt/lists/*
+RUN apt-get purge -y --auto-remove \
+    &&  apt-get clean \
+    &&  rm -rf /var/lib/apt/lists/*
     
 USER $NB_USER
 WORKDIR /home/$NB_USER
@@ -93,8 +65,8 @@ ENV PATH="$PYENV_ROOT/libexec/:$PATH"
 ENV PATH="$PYENV_ROOT/shims/:$PATH"
 
 RUN eval "$(pyenv init -)" 
-RUN pyenv install 3.5.2
-RUN pyenv global 3.5.2
+RUN pyenv install 3.6.0
+RUN pyenv global 3.6.0
 
 RUN pip install --no-cache-dir -q jupyter jupyterlab \
     && rm -rf /home/$NB_USER/.cache \
