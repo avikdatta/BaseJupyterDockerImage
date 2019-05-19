@@ -73,8 +73,8 @@ RUN conda install --quiet --yes\
     jupyter \
     jupyterlab && \
     conda clean --all -f -y && \
-    && rm -rf /home/$NB_USER/tmp \
-    && mkdir -p /home/$NB_USER/tmp 
+    rm -rf /home/$NB_USER/tmp && \
+    mkdir -p /home/$NB_USER/tmp 
 
 RUN mkdir -p /home/$NB_USER/.jupyter
 RUN echo "c.NotebookApp.password = u'sha1:c991cd11a7cc:f4c7bd274c69271f7333ea24bfe85103566464de'" > /home/$NB_USER/.jupyter/jupyter_notebook_config.py
