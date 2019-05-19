@@ -66,8 +66,11 @@ ENV TMPDIR=/home/$NB_USER/tmp
 #RUN pyenv global 3.6.0
 
 RUN echo ". /home/$NB_USER/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc
+    echo "con
+    da activate base" >> ~/.bashrc
     
+ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
+
 RUN conda install --quiet --yes\
     python==3.6.0 \
     jupyter \
