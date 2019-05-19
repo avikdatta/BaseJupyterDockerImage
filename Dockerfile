@@ -65,10 +65,14 @@ ENV TMPDIR=/home/$NB_USER/tmp
 #RUN pyenv install 3.6.0
 #RUN pyenv global 3.6.0
 
+RUN  wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+     bash Miniconda3-latest-Linux-x86_64.sh -b
+
+ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
+
 RUN echo ". /home/$NB_USER/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
     
-ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
 
 RUN conda install --quiet --yes\
     python==3.6.0 \
@@ -92,6 +96,8 @@ RUN wget --quiet  https://github.com/krallin/tini/releases/download/${TINI_VERSI
     mv tini /usr/local/bin/tini && \ 
     chmod +x /usr/local/bin/tini
 USER $NB_USER
+
+RUN mkdir -p /home/$NB_USER/tmp 
 
 EXPOSE 8888
 ENTRYPOINT ["/usr/local/bin/tini", "--"]
