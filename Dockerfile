@@ -66,8 +66,7 @@ ENV TMPDIR=/home/$NB_USER/tmp
 #RUN pyenv global 3.6.0
 
 RUN echo ". /home/$NB_USER/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "con
-    da activate base" >> ~/.bashrc
+    echo "conda activate base" >> ~/.bashrc
     
 ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
 
