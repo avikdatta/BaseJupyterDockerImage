@@ -35,7 +35,8 @@ apt-get install --no-install-recommends -y \
     libopenblas-dev        \
     texlive-xetex          \
     openssl                \
-    ca-certificates        
+    ca-certificates        \
+    npm nodejs-legacy
     
      
 #RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
